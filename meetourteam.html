@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meet Our Team</title>
+  <style>
+    @layer reset, base, utilities, components, layout, overrides;
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @property --direction {
+      syntax: '<number>';
+      initial-value: 1;
+      inherits: true;
+    }
+
+    @layer reset {
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      :where(:not(dialog)) {
+        margin: 0;
+      }
+
+      :where(html) {
+        -webkit-text-size-adjust: none;
+        @media (prefers-reduced-motion: no-preference) {
+          scroll-behavior: smooth;
+        }
+      }
+
+      :where(body) {
+        min-block-size: 100svb;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+
+    @layer base {
+      html {
+        --surface-1: oklch(20% 0.03 269);
+        --surface-2: oklch(26% 0.04 269);
+        --text-1: oklch(91% 0.03 61);
+        --body: 400 1rem/1.5rem system-ui, sans-serif;
+        --display: 400 3.562rem/4rem system-ui, sans-serif;
+        --display-small: 400 2.25rem/2.75rem system-ui, sans-serif;
+        --label: 500 0.875rem/1.25rem system-ui, sans-serif;
+        --title: 400 1.375rem/1.75rem system-ui, sans-serif;
+        color-scheme: dark;
+      }
+
+      body {
+        margin: 0;
+        background-color: #0b1020;
+        color: #e0d6d0;
+        font-family: sans-serif;
+      }
+  
+    }
+
+    @layer layout {
+      .section {
+        display: grid;
+        max-inline-size: 100%;
+        min-block-size: 100svb;
+        overflow-x: clip;
+        padding-block: 80px;
+        place-items: center;
+      }
+
+      .section-wrapper {
+        display: grid;
+        place-items: center;
+      }
+
+      .header {
+        display: grid;
+        place-items: center;
+        gap: 16px;
+        z-index: 2;
+        @media (width >=1024px) {
+          grid-area: 1/1;
+        }
+      }
+
+      .hgroup {
+        display: grid;
+        place-items: center;
+        gap: 8px;
+      }
+
+      .headline {
+        font: var(--display-small);
+        @media (width >=1200px) {
+          font: var(--display);
+        }
+      }
+
+      .section-link {
+        color: var(--text-1);
+        text-decoration: underline;
+        font: var(--label);
+        @media (width < 1024px) {
+          display: none;
+        }
+      }
+
+      .cards {
+        list-style: none;
+        padding: 0;
+        @media (width < 1024px) {
+          display: grid;
+          grid-auto-flow: column;
+          gap: 32px;
+          max-inline-size: 100%;
+          overflow-x: scroll;
+          padding-block: 32px;
+          padding-inline: 32px;
+        }
+        @media (width >=1024px) {
+          --avatar-opacity: 1;
+          --avatar-img-scale: 1;
+          --tooltip-visibility: hidden;
+          --tooltip-opacity: 0;
+          --animation-state: running;
+          display: grid;
+          grid-area: 1/1;
+          min-block-size: 700px;
+          place-items: center;
+          &:has(.avatar-link-wrapper:is(:hover, :focus-visible, :active)) {
+            --animation-state: paused;
+            --avatar-opacity: 0.4;
+          }
+        }
+      }
+
+      .card {
+        padding: 0;
+        @media (width >=1024px) {
+          --radius: min(620px, 40cqi);
+          --offset-per-child: calc(360deg / (var(--nth-siblings) + 1));
+          --angle-offset: calc(var(--nth-child) * var(--offset-per-child));
+          --inline-ratio: 1/1;
+          --block-ratio: 1/2;
+          --direction: min(max(calc(cos((var(--angle) + var(--angle-offset))) * -100), -1), 1);
+          grid-area: 1/1;
+          translate: calc(cos((var(--angle) + var(--angle-offset))) * var(--radius) * var(--inline-ratio))
+            calc(sin((var(--angle) + var(--angle-offset))) * var(--radius) * var(--block-ratio) * -1);
+          animation: adjust-angle linear 40s infinite reverse var(--animation-state);
+        }
+      }
+
+      @keyframes adjust-angle {
+        to {
+          --angle: 360deg;
+        }
+      }
+
+      .avatar-link-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        color: var(--text-1);
+        &:is(:hover, :focus-visible, :active) {
+          --avatar-img-scale: 1.1;
+          --avatar-opacity: 1;
+          --tooltip-opacity: 1;
+          --tooltip-visibility: visible;
+        }
+        @media (width < 1024px) {
+          flex-direction: column;
+          gap: 16px;
+        }
+      }
+
+      .visual {
+        aspect-ratio: 1;
+        border-radius: 1rem;
+        box-shadow: 0 2px 4px 0 oklch(0 0 0 / 10%);
+        inline-size: 240px;
+        opacity: var(--avatar-opacity);
+        overflow: clip;
+        transition: opacity 0.3s ease;
+        @media (width >=1024px) {
+          inline-size: 144px;
+          border-radius: 1e5px;
+        }
+      }
+
+      .avatar-img {
+        background-color: var(--surface-2);
+        block-size: 100%;
+        display: block;
+        inline-size: 100%;
+        object-fit: cover;
+        scale: var(--avatar-img-scale, 1);
+        transition: scale 0.3s ease;
+      }
+
+      .tooltiptext {
+        display: grid;
+        gap: 4px;
+        @media (width >=1024px) {
+          position: absolute;
+          max-inline-size: 20ch;
+          opacity: var(--tooltip-opacity);
+          transition: opacity 0.3s ease, visibility 0.3s ease;
+          translate: 110% 0;
+          visibility: var(--tooltip-visibility);
+          pointer-events: none;
+          user-select: none;
+          @container style(--direction: -1) {
+            text-align: end;
+            translate: -110% 0;
+          }
+        }
+      }
+
+      .team-name {
+        font: var(--title);
+      }
+
+    @layer reset, base, utilities, components, layout, overrides;
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @property --direction {
+      syntax: '<number>';
+      initial-value: 1;
+      inherits: true;
+    }
+
+    @layer reset {
+      *, ::before, ::after {
+        box-sizing: border-box;
+      }
+
+      :where(:not(dialog)) {
+        margin: 0;
+      }
+
+      :where(html) {
+        -webkit-text-size-adjust: none;
+        @media (prefers-reduced-motion: no-preference) {
+          scroll-behavior: smooth;
+        }
+      }
+
+      :where(body) {
+        min-block-size: 100svb;
+        -webkit-font-smoothing: antialiased;
+      }
+    }
+
+    @layer base {
+      html {
+        --surface-1: oklch(20% 0.03 269);
+        --surface-2: oklch(26% 0.04 269);
+        --text-1: oklch(91% 0.03 61);
+        --body: 400 1rem/1.5rem system-ui, sans-serif;
+        --display: 400 3.562rem/4rem system-ui, sans-serif;
+        --display-small: 400 2.25rem/2.75rem system-ui, sans-serif;
+        --label: 500 0.875rem/1.25rem system-ui, sans-serif;
+        --title: 400 1.375rem/1.75rem system-ui, sans-serif;
+        color-scheme: dark;
+      }
+
+      body {
+        background-color: var(--surface-1);
+        color: var(--text-1);
+        font: var(--body);
+      }
+    }
+
+    @layer layout {
+      .section {
+        display: grid;
+        max-inline-size: 100%;
+        min-block-size: 100svb;
+        overflow-x: clip;
+        padding-block: 40px;
+        place-items: center;
+      }
+
+      .section-wrapper {
+        display: grid;
+        place-items: center;
+      }
+      .brandsCarousel {
+        width: 100%;
+        overflow: hidden;
+        padding: 2rem 0;
+        display: flex;
+        justify-content: center;
+      }
+      
+      .carouselTrack {
+        display: flex;
+        gap: 2rem;
+        animation: infiniteLoop 30s linear infinite;
+        align-items: center;
+        width: max-content;
+      }
+      
+      .brandLogo {
+        position: relative;
+        width: 90px;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: transform 0.3s ease;
+      }
+      
+      .brandLogo:hover {
+        transform: scale(1.05);
+      }
+      
+      .brandLogo svg {
+        width: 60%;
+        height: 60%;
+        display: block;
+      }
+      
+      .brandLogo svg circle {
+        fill: #444;
+      }
+      
+      .brandLogo svg path {
+        fill: #fff;
+      }
+      
+      .tooltip {
+        position: absolute;
+        top: -1.8rem;
+        background: none;
+        color: #fff;
+        font-size: 0.75rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(0);
+        transition: all 0.3s ease;
+      }
+      
+      .brandLogo:hover .tooltip {
+        opacity: 1;
+        transform: translateY(-4px);
+      }
+      
+      @keyframes infiniteLoop {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }      
+    }
+}
+    </style>
+  </head>
+
+<body>
+<section class="section">
+  <div class="section-wrapper">
+    <header class="header">
+      <hgroup class="hgroup">
+        <h2 class="headline"> Meet Our Team! </h2>
+        <p class="tagline"> Creative minds shaping the Future </p>
+      </hgroup>
+      <a href="#" class="section-link"> View All </a>
+    </header>
+    
+    <ul class="cards" style="--nth-siblings: 5">
+      
+      <li class="card" style="--nth-child: 1">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/Delna.jpg"
+              width="144" height="144" alt="Delna Manuel., SDET Engineer" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name">Delna Manuel</h3>
+            <div class="team-content-wrapper">
+              <p class="team-title"> SDET Engineer </p>
+              <p class="team-bio">
+                Master of servers, pipelines, and keeping things running
+                smoothly.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+      
+      <li class="card" style="--nth-child: 2">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/akhil.jpeg"
+              width="70" height="60" alt="Akhil., ETL Automation Tester" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name">Akhil</h3>
+            <div class="team-content-wrapper">
+              <p class="team-title"> ETL Automation Tester </p>
+              <p class="team-bio">
+                Turning ideas into stunning designs, one pixel at a time.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li class="card" style="--nth-child: 3">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/Sindhu.jpg"
+              width="144" height="144" alt="Sindhu M., Automation Testerr" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name"> Sindhu M </h3>
+            <div class="team-content-wrapper">
+              <p class="team-title"> Automation Tester </p>
+              <p class="team-bio">
+                Crafting sleek, intuitive apps for users on the go.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li class="card" style="--nth-child: 4">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/Ravali.jpg"
+              width="144" height="144" alt="Ravali Kasula.,  QA Automation Tester" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name"> Ravali Kasula </h3>
+            <div class="team-content-wrapper">
+              <p class="team-title"> QA Automation Tester</p>
+              <p class="team-bio">
+                Decoding patterns and finding insights in the chaos.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+      
+      <li class="card" style="--nth-child: 5">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/spandu.jpeg"
+              width="20" height="20" alt="Spandu M., Guidewire Developer" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name"> Spandu M</h3>
+            <div class="team-content-wrapper">
+              <p class="team-title">Guidewire Developer</p>
+              <p class="team-bio">
+                Powered by algorithms, driven by collaboration.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+
+      <li class="card" style="--nth-child: 6">
+        <a href="#" class="avatar-link-wrapper">
+          <div class="visual">
+            <img class="avatar-img"
+              src="images/Friends/nikhil.jpeg"
+              width="40" height="40" alt="Nikhil B., ETL QA Lead" />
+          </div>
+          <div class="tooltiptext">
+            <h3 class="team-name"> Nikhil B</h3>
+            <div class="team-content-wrapper">
+              <p class="team-title"> ETL QA Lead</p>
+              <p class="team-bio">
+                Keeping the team in sync and deadlines on track.
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="brandsCarousel">
+    <div class="carouselTrack" id="carouselTrack">
+  
+      <!-- YouTube -->
+      <div class="brandLogo"><span class="tooltip">YouTube</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M10 15l5.2-3L10 9z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- GitHub -->
+      <div class="brandLogo"><span class="tooltip">GitHub</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M12 2C6.5 2 2 6.7 2 12.3c0 4.5 2.9 8.3 6.9 9.6.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.6 1.2 1.6 1.2 1 .1.8-.5 1.6-.6.3-.5.7-1 .8-1.1-2.3-.3-4.8-1.2-4.8-5.1 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.9 0 0 .9-.3 2.9 1.1.9-.2 1.9-.3 2.9-.3s2 .1 2.9.3c2-.1 2.9-1.1 2.9-1.1.6 1.5.2 2.6.1 2.9.7.8 1.1 1.8 1.1 2.8 0 4-2.5 4.8-4.9 5.1.4.4.8 1 .8 2v3c0 .3.2.6.7.5 4-.9 6.9-4.7 6.9-9.2C22 6.7 17.5 2 12 2z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Instagram -->
+      <div class="brandLogo"><span class="tooltip">Instagram</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M7 6h10a1 1 0 011 1v10a1 1 0 01-1 1H7a1 1 0 01-1-1V7a1 1 0 011-1zm5 3a3 3 0 100 6 3 3 0 000-6zm4-2a1 1 0 100 2 1 1 0 000-2z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- X (formerly Twitter) -->
+      <div class="brandLogo"><span class="tooltip">X</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M16.9 7h-2l-2.3 2.7L10 7H7l4 5-4 5h2.2l2.3-2.7 2.2 2.7h2l-4-5z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Facebook -->
+      <div class="brandLogo"><span class="tooltip">Facebook</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M13.5 10H15l.5-3h-2.5V5.5c0-.9.4-1.5 1.5-1.5h1V1.1S14.4 1 13.3 1c-2 0-3.3 1.2-3.3 3.4V7H8v3h2v7h3.5z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Twitter -->
+      <div class="brandLogo"><span class="tooltip">Twitter</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M19.6 6.3c-.7.3-1.4.6-2.1.7.8-.5 1.3-1.2 1.6-2.1-.8.5-1.6.8-2.5 1A4.1 4.1 0 0012 5c-2.3 0-4.1 2-4.1 4.4 0 .3 0 .6.1.9-3.4-.2-6.4-1.9-8.4-4.6-.4.6-.6 1.3-.6 2 0 1.5.7 2.8 1.9 3.6-.6 0-1.3-.2-1.9-.5 0 2.1 1.4 3.9 3.3 4.3-.6.2-1.3.2-2 0a4.4 4.4 0 0 0 4.1 3.1A8.3 8.3 0 012 19c1.5.9 3.2 1.5 5 1.5 6 0 9.3-5.2 9.3-9.6V10c.6-.4 1.2-1 1.6-1.7z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Slack -->
+      <div class="brandLogo"><span class="tooltip">Slack</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M7.5 12a1.5 1.5 0 110-3h1.5V7.5A1.5 1.5 0 0112 6a1.5 1.5 0 110 3h-1.5V12zm3 0h3V9h-3v3zm3 1.5A1.5 1.5 0 0112 15a1.5 1.5 0 01-1.5-1.5V12h-3v1.5A1.5 1.5 0 018.5 15H12z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Discord -->
+      <div class="brandLogo"><span class="tooltip">Discord</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M17.7 8.3a10.3 10.3 0 00-2.6-.8l-.2.3a7.8 7.8 0 00-5.8 0l-.2-.3c-1 .2-2 .5-2.6.8a12 12 0 00-1.8 9c1.5 1 3.1 1.7 4.7 2.1l.3-.4c-.5-.2-1.2-.5-1.8-.8a7.6 7.6 0 003.2 1.3 7.6 7.6 0 003.2-1.3c-.6.3-1.3.6-1.8.8l.3.4c1.6-.4 3.2-1.1 4.7-2.1.3-2.7-.4-5.5-1.8-9zM9.1 13.9c-.7 0-1.2-.7-1.2-1.5s.6-1.5 1.2-1.5 1.2.7 1.2 1.5-.6 1.5-1.2 1.5zm5.8 0c-.7 0-1.2-.7-1.2-1.5s.6-1.5 1.2-1.5 1.2.7 1.2 1.5-.5 1.5-1.2 1.5z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- LinkedIn -->
+      <div class="brandLogo"><span class="tooltip">LinkedIn</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M9 10h2v6H9v-6zm-1-1a1 1 0 110-2 1 1 0 010 2zm4 1h2v1h.1a2.2 2.2 0 012-1c2 0 2.4 1.2 2.4 2.8V16h-2v-3c0-.7 0-1.4-1-1.4s-1.1.7-1.1 1.4V16h-2v-6z" fill="#fff"/></svg>
+      </div>
+  
+      <!-- Dribbble -->
+      <div class="brandLogo"><span class="tooltip">Dribbble</span>
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm5.7 5.1a8.2 8.2 0 013 4.3c-2.4-.5-4.9-.6-7.4-.3-.3-.6-.6-1.1-.9-1.6 1.8-1 3.3-2.2 5-3.5zM12 3.8a8.3 8.3 0 015.1 1.7c-1.4 1.2-2.8 2.2-4.5 3.2a31 31 0 00-4.6-5 8.2 8.2 0 013.9-.9zm-5.7 2a31 31 0 014.6 5.1c-2.5.6-5.2 1.1-7.8 1.2a8.3 8.3 0 013.2-6.3zM3.8 12.7c3.1-.1 6.2-.7 9.2-1.5.3.5.5 1 .7 1.5-2.8.9-5.3 2.4-7.3 4.5a8.2 8.2 0 01-2.6-4.5zm3.4 5.2c2-1.9 4.4-3.2 7-4 1 2.2 1.7 4.5 2.2 6.9a8.3 8.3 0 01-9.2-2.9zm10.6 2a29.3 29.3 0 00-2.1-6.7c2.1-.2 4.2.1 6.3.6a8.3 8.3 0 01-4.2 6.1z" fill="#fff"/></svg>
+      </div>
+    </div>
+</section>
+  
+  
+
+<script>
+    const track = document.getElementById('carouselTrack');
+    const logos = Array.from(track.children);
+    logos.forEach(logo => {
+      const clone = logo.cloneNode(true);
+      track.appendChild(clone);
+    });
+  </script>
+
+  </body>
+</html>

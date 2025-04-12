@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Promotions Home Page </title>
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #ffffff;
+    }
+
+    [data-theme="light"] {
+      --bg-color: #ffffff;
+      --text-color: #1f2937;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      transition: background 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+    }
+
+    .toggle-container {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 1000;
+    }
+
+    .toggle-input {
+      height: 0;
+      width: 0;
+      visibility: hidden;
+    }
+
+    .toggle-label {
+      cursor: pointer;
+      width: 50px;
+      height: 26px;
+      background: #374151;
+      display: block;
+      border-radius: 100px;
+      position: relative;
+    }
+
+    .toggle-label::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 90px;
+      transition: 0.3s;
+    }
+
+    .toggle-input:checked + .toggle-label {
+      background: #8b5cf6;
+    }
+
+    .toggle-input:checked + .toggle-label::after {
+      left: calc(100% - 2px);
+      transform: translateX(-100%);
+    }
+
+    .toggle-label:active::after {
+      width: 28px;
+    }
+
+    .card {
+      position: fixed;
+      bottom: 8rem;
+      right: 1rem;
+      width: 22em;
+      background: #171717;
+      clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1em 1.25em 1.5em;
+      text-align: center;
+      z-index: 999;
+    }
+
+    .card span,
+    .card .info,
+    .card .share a,
+    .card button {
+      color: #ffffff;
+    }
+
+    .card .info {
+      font-size: 0.85em;
+      line-height: 1.6;
+      margin: 1em 0;
+    }
+
+    .card .img {
+      width: 4.8em;
+      height: 4.8em;
+      background-image: url('images/Friends/nikhil.jpeg'); /* make sure path is correct */
+      background-size: cover;
+      background-position: center;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      margin: 0 auto;
+    }
+
+    .card .img {
+      width: 4.8em;
+      height: 4.8em;
+      background: white;
+      border-radius: 15px;
+      margin: 0 auto;
+    }
+
+    .card .share {
+      display: flex;
+      justify-content: center;
+      gap: 1.2em;
+      margin: 1em 0;
+    }
+
+    .card .share a svg {
+      transition: 0.3s ease-in-out;
+      fill: #ffffff;
+    }
+
+    .card .share a:hover svg {
+      fill: red;
+    }
+
+    .card button {
+      padding: 0.6em 1.5em;
+      margin: 0 auto;
+      border-radius: 25px;
+      border: none;
+      font-weight: bold;
+      background: white;
+      color: black;
+      transition: 0.3s ease-in-out;
+    }
+
+    .card button:hover {
+      background: red;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* === Notification Box === */
+    .notification {
+      position: fixed;
+      bottom: 26rem;
+      left: 2rem;
+      width: 18rem;
+      height: 8rem;
+      background: #29292c;
+      border-radius: 1rem;
+      overflow: hidden;
+      font-family: 'Gill Sans', sans-serif;
+      font-size: 16px;
+      display: flex;
+      flex-direction: column;
+      isolation: isolate;
+    }
+
+    .notification:before {
+      content: "";
+      position: absolute;
+      inset: 0.0625rem;
+      border-radius: 0.9375rem;
+      background: #18181b;
+      z-index: 2;
+    }
+
+    .notification:after {
+      content: "";
+      position: absolute;
+      width: 0.25rem;
+      inset: 0.65rem auto 0.65rem 0.5rem;
+      border-radius: 0.125rem;
+      background: linear-gradient(to bottom, #2eadff, #3d83ff, #7e61ff);
+      transition: transform 300ms ease;
+      z-index: 4;
+    }
+
+    .notification:hover:after {
+      transform: translateX(0.15rem);
+    }
+
+    .notititle {
+      color: #32a6ff;
+      padding: 0.65rem 0.25rem 0.4rem 1.25rem;
+      font-weight: 500;
+      font-size: 1.1rem;
+      z-index: 5;
+      transition: transform 300ms ease;
+    }
+
+    .notification:hover .notititle {
+      transform: translateX(0.15rem);
+    }
+
+    .notibody {
+      color: #99999d;
+      padding: 0 1.25rem;
+      z-index: 5;
+      transition: transform 300ms ease;
+    }
+
+    .notification:hover .notibody {
+      transform: translateX(0.25rem);
+    }
+
+    .notiglow,
+    .notiborderglow {
+      position: absolute;
+      width: 20rem;
+      height: 20rem;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle closest-side at center, white, transparent);
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .notiglow {
+      z-index: 3;
+    }
+
+    .notiborderglow {
+      z-index: 1;
+    }
+
+    .notification:hover .notiglow,
+    .notification:hover .notiborderglow {
+      opacity: 0.1;
+    }
+
+    /* === Glass Cards Section === */
+    .container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 60px; /* 👈 Lowered the glass section */
+      gap: 1rem;
+    }
+
+    .container .glass {
+      position: relative;
+      width: 180px;
+      height: 200px;
+      background: linear-gradient(#fff2, transparent);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.5s;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      margin: 0 -45px;
+      transform: rotate(calc(var(--r) * 1deg));
+    }
+
+    .container:hover .glass {
+      transform: rotate(0deg);
+      margin: 0 10px;
+    }
+
+    .container .glass::before {
+      content: attr(data-text);
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .container .glass svg {
+      font-size: 2.5em;
+      fill: #fff;
+    }
+
+    .resume-wrapper {
+      display: inline-block;
+      background: var(--card-bg);
+      padding: 4px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+    }
+
+    .resume-button {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      padding: 8px 20px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .resume-button:hover {
+      transform: scale(1.05);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Theme Switch -->
+  <div class="toggle-container">
+    <input type="checkbox" id="theme-toggle" class="toggle-input">
+    <label for="theme-toggle" class="toggle-label"></label>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification">
+    <div class="notiglow"></div>
+    <div class="notiborderglow"></div>
+    <div class="notititle">Welcome To Uiverse</div>
+    <div class="notibody">Contribute to Open Source UI Elements</div>
+  </div>
+
+  <!-- About Me Card -->
+  <div class="card">
+    
+    <div class="img"></div>
+    
+    <span>About Me</span>
+
+    <p class="info">I’m Sai Nikhil Bogisetty, passionate ETL MDM Automation Tester with 4+ years of experience in
+      test automation by bringing expertise in Selenium WebDriver, Java, Python,
+      SQL & API testing with tools like Postman & JMeter. 
+    </p>
+
+
+    <div class="share">
+
+      <!-- GitHub -->
+      <a href="https://github.com/sai-nikhil-428"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fefefe"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.263.82-.583 0-.287-.01-1.05-.015-2.06-3.338.724-4.042-1.613-4.042-1.613-.546-1.385-1.333-1.753-1.333-1.753-1.09-.745.083-.73.083-.73 1.205.085 1.84 1.236 1.84 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.775.42-1.305.763-1.605-2.665-.3-5.466-1.333-5.466-5.93 0-1.31.467-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.435.375.81 1.096.81 2.215 0 1.6-.015 2.885-.015 3.28 0 .315.21.705.825.585C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/></svg></a>
+      
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/sainikhilb/"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fefefe"><path d="M19 0h-14C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zm-11 19H5v-9h3v9zm-1.5-10.25C5.12 8.75 4 7.63 4 6.25S5.12 3.75 6.5 3.75 9 4.87 9 6.25 7.88 8.75 6.5 8.75zm13.5 10.25h-3v-4.5c0-1.07-.93-2-2-2s-2 .93-2 2v4.5h-3v-9h3v1.09c.69-1.28 2.22-1.91 3.58-1.39C19.24 10.47 20 12.03 20 13.75V19z"/></svg></a>
+      
+      <!-- Email -->
+      <a href="mailto:b.sainikhil2311@gmail.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#fefefe"><path d="M0 4a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v1.586l-11 7-11-7V4zm0 3.803V20a2 2 0 0 0 2 2h20a2 2 0 0 0 2-2V7.803l-11 7-11-7z"/></svg></a>
+
+    </div>
+
+    <div class="resume-wrapper">
+      <a href="Files/Sai_Nikhil_ETL MDM Automation Tester.pdf" download>
+        <button class="resume-button">Resume</button>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Glass Cards -->
+  <div class="container">
+
+    <div class="glass" data-text="GitHub" style="--r:-15;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512" height="40" width="40" fill="white"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg></div>
+
+    <div class="glass" data-text="Code" style="--r:5;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" height="40" width="40" fill="white"><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg></div>
+
+    <div class="glass" data-text="Earn" style="--r:25;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="40" width="40" fill="white"><path d="M64 64C28.7 64 0 92.7 0 128V384c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128c0-35.3-28.7-64-64-64H64zm64 320H64V320c35.3 0 64 28.7 64 64zM64 192V128h64c0 35.3-28.7 64-64 64zM448 384c0-35.3 28.7-64 64-64v64H448zm64-192c-35.3 0-64-28.7-64-64h64v64zM288 160a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/></svg></div>
+
+  </div>
+
+  
+  <script>
+    const toggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+
+    if (localStorage.getItem('theme') === 'light') {
+      html.setAttribute('data-theme', 'light');
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', () => {
+      html.setAttribute('data-theme', toggle.checked ? 'light' : 'dark');
+      localStorage.setItem('theme', toggle.checked ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>

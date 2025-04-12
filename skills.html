@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills Section</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: hsl(0, 0%, 100%);
+      --secondary: hsl(0, 0%, 62%);
+      --accent: hsl(24, 74%, 58%);
+      --bg: hsl(0, 0%, 12%);
+      --card-bg: hsl(0, 0%, 19%);
+      --shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      --radius: 12px;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--primary);
+      font-family: 'Roboto', sans-serif;
+      overflow-x: hidden;
+    }
+    .skills {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 1rem 6rem;
+      display: flex;
+      gap: 4rem;
+      align-items: flex-start;
+      box-sizing: border-box;
+      min-height: 100vh;
+    }
+    .skills-content {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+    .section-subtitle-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1.75rem;
+    }
+    .section-subtitle {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      color: var(--secondary);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle-line {
+      width: 2px;
+      height: 100px;
+      background: var(--secondary);
+    }
+    .text-block {
+      flex: 1;
+    }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .section-text {
+      color: var(--secondary);
+      margin-bottom: 2rem;
+      max-width: 400px;
+    }
+    .skills-toggle {
+      position: relative;
+      display: inline-flex;
+      width: 200px;
+      height: 44px;
+      background: var(--card-bg);
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .skills-toggle .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 50%;
+      height: 100%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: left 0.3s ease;
+      z-index: 0;
+    }
+    .toggle-btn {
+      position: relative;
+      flex: 1;
+      border: none;
+      background: transparent;
+      color: var(--primary);
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .toggle-btn.active {
+      color: var(--bg);
+    }
+
+    .skills-box {
+      flex: 1;
+      min-width: 300px;
+      display: grid;
+      place-items: center;
+      padding: 2rem 1rem;
+      overflow: visible;
+    }
+
+    .skills-box ul {
+      display: none;
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .skills-box > ul {
+      display: none;
+      grid-template-columns: repeat(5, 70px);
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .skills-box ul.active {
+      display: grid;
+    }
+
+    .skills-box > ul.active {
+      display: grid;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      width: 70px;
+      height: 70px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.4s ease;
+    }
+    .skill-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 12px 4px rgba(255, 147, 41, 0.3);
+    }
+    .skill-card img {
+      width: 40px;
+      height: 40px;
+    }
+    .tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-5px);
+      background-color: var(--accent);
+      color: var(--bg);
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .skill-card:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="skills" id="skills">
+    <div class="skills-content section-content">
+      <div class="section-subtitle-wrapper">
+        <p class="section-subtitle">MY SKILLS</p>
+        <span class="subtitle-line"></span>
+      </div>
+      <div class="text-block">
+        <h2 class="section-title">What My Programming Skills are Included?</h2>
+        <p class="section-text">
+          I develop simple, intuitive and responsive user interface that helps users get things done with less effort and time with those technologies.
+        </p>
+        <div class="skills-toggle">
+          <div class="slider"></div>
+          <button class="toggle-btn active" data-target="skills-list">Skills</button>
+          <button class="toggle-btn" data-target="tools-list">Tools</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-box">
+      
+      <ul class="skills-list active" id="skills-list">
+        <li><div class="skill-card"><span class="tooltip">HTML5</span><img src="images/skills/html5.png" alt="HTML5"></div></li>
+        <li><div class="skill-card"><span class="tooltip">CSS3</span><img src="images/skills/css3.png" alt="CSS3"></div></li>
+        <li><div class="skill-card"><span class="tooltip">JavaScript</span><img src="images/skills/javascript.png" alt="JavaScript"></div></li>
+      </ul>
+
+      <ul class="tools-list" id="tools-list">
+        <li><div class="skill-card"><span class="tooltip">Qlik View</span><img src="images/skills/qlikview.svg" alt="qlikview"></div></li>
+        <li><div class="skill-card"><span class="tooltip">Qlik Sense</span><img src="images/skills/Qlik Sense.png" alt="qliksense"></div></li>
+        <li><div class="skill-card"><span class="tooltip">Eclipse</span><img src="images/skills/eclipse.svg" alt="eclipse"></div></li>
+        <li><div class="skill-card"><span class="tooltip">Postman</span><img src="images/skills/postman.svg" alt="Postman"></div></li>
+        <li><div class="skill-card"><span class="tooltip">Teradata</span><img src="images/skills/teradata.png" alt="Teradata"></div></li>
+        <li><div class="skill-card"><span class="tooltip">SQL Server Studio</span><img src="images/skills/ssms.png" alt="SQL Server Studio"></div></li>
+        <li><div class="skill-card"><span class="tooltip">sql_server</span><img src="images/skills/sql_server.png" alt="sql_server"></div></li>
+        <li><div class="skill-card"><span class="tooltip">Informatica</span><img src="images/skills/Informatica.jpeg" alt="Informatica"></div></li>
+        <li><div class="skill-card"><span class="tooltip">azure_studio</span><img src="images/skills/azure_studio.jpeg" alt="azure_studio"></div></li>
+        <li><div class="skill-card"><span class="tooltip">cosmos_db</span><img src="images/skills/cosmos_db.png" alt="cosmos_db"></div></li>
+        <li><div class="skill-card"><span class="tooltip">denodo</span><img src="images/skills/denodo.png" alt="denodo"></div></li>
+        <li><div class="skill-card"><span class="tooltip">loadrunner</span><img src="images/skills/loadrunner.png" alt="loadrunner"></div></li>
+        <li><div class="skill-card"><span class="tooltip">soapui</span><img src="images/skills/soapui.png" alt="soapui"></div></li>
+        <li><div class="skill-card"><span class="tooltip">selenium</span><img src="images/skills/selenium.png" alt="selenium"></div></li>
+        <li><div class="skill-card"><span class="tooltip">vs-code</span><img src="images/skills/vs-code.png" alt="vs-code"></div></li>
+        <li><div class="skill-card"><span class="tooltip">jmeter</span><img src="images/skills/jmeter.svg" alt="jmeter"></div></li>
+      </ul>
+
+    </div>
+  </section>
+
+  <script>
+    const toggleBtns = document.querySelectorAll('.toggle-btn');
+    const slider = document.querySelector('.slider');
+    const lists = {
+      'skills-list': document.getElementById('skills-list'),
+      'tools-list': document.getElementById('tools-list')
+    };
+
+    toggleBtns.forEach((btn, index) => {
+      btn.addEventListener('click', () => {
+        toggleBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        Object.values(lists).forEach(list => list.classList.remove('active'));
+        lists[btn.dataset.target].classList.add('active');
+
+        slider.style.left = index === 0 ? '0%' : '50%';
+      });
+    });
+  </script>
+
+</body>
+</html>

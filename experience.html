@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Experience</title>
+
+  <!-- Lottie Player -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <style>
+    :root {
+      --primary-bg: #0b1120;
+      --card-bg: #1c2333;
+      --text-color: #ffffff;
+      --muted-color: #cccccc;
+      --purple: #9333ea;
+      --gold: #facc15;
+      --text-color: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--text-color);
+      padding: 40px;
+    }
+    
+
+    .experience-section {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .experience-wrapper {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .experience-left {
+      flex: 1;
+      min-width: 320px;
+    }
+
+    .experience-title {
+      font-size: 2.2rem;
+      color: var(--purple);
+      margin-bottom: 1rem;
+    }
+
+    .experience-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted-color);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    .experience-right {
+      flex: 1;
+      min-width: 320px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .job-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .company-logo {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+
+    .accenture-logo {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .company-row {
+      display: block;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .calendar-dates {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      color: var(--muted-color);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    .calendar-icon {
+      width: 16px;
+      height: 16px;
+      stroke: var(--muted-color);
+    }
+
+    .timeline {
+      margin-top: -40px;
+    }
+
+    .title-wrapper {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      margin-top: 80px;
+      margin-bottom: 30px;
+      height: 48px;
+    }
+
+    .icon-box {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px #1c1c1c;
+      margin-right: 16px;
+    }
+
+    .h3 {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      margin: 0;
+      padding-top: 2px;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 0;
+      height: 120px;
+      width: 2px;
+      background-color: yellow;
+      bottom: -50px; /* extends the line past the dot */
+    }
+
+    .bottom-line-extension {
+      position: absolute;
+      top: Xpx; /* set below last circle */
+      height: 10px;
+      width: 2px;
+      background-color: yellow;
+    }
+
+    .timeline-list {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline-list::before {
+      top: 10px; /* or 0 if no padding needed */
+      bottom: 10px; /* ensures it goes to last dot */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      background-color: #2a2a2a;
+      z-index: 0;
+      bottom: 10px; /* ensures it goes to last dot */
+    }
+    
+    .timeline-list li:last-child::after {
+      content: none;
+    }
+
+
+    .timeline-item {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 40px;
+    }
+
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 30px;
+      width: 2px;
+      height: calc(100% - 8px); /* was 24px — now only slightly trimmed */
+      background-color: #2a2a2a;
+    }
+
+    .timeline-item:nth-last-child(2)::after {
+      height: calc(100% + 16px); /* extend line further down */
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 80px; /* ⬅️ Gives room for the extended line */
+    }
+
+    .timeline-item:last-child::after {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 30px;
+      width: 2px;
+      height: 80px; /* ⬅️ Increased to extend farther down */
+      background-color: #2a2a2a;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      left: 20px;
+      width: 20px;
+      height: 20px;
+      background-color: #facc15;
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px #1c1c1c;
+    }
+    
+    .timeline-item-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .timeline-item span {
+      display: block;
+      color: #facc15;
+      margin-bottom: 8px;
+    }
+
+    .timeline-text {
+      color: var(--muted-color);
+      font-size: 1.2rem;        /* ⬅️ increases text beside bullet */
+      line-height: 1.7;
+      font-size: 1.05rem;
+      padding-left: 0;       /* extra space for larger bullet */
+    }
+
+    .timeline-text li {
+      margin-top: 18px;
+      font-size: 1.05rem;             /* optional: enlarge text too */
+      list-style-type: disc;
+      list-style-position: inside;     /* ⬅️ aligns dot to first line */
+      line-height: 1.7;
+    }
+
+    .timeline-text li.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-text li::marker {
+      font-size: 1.2em;               /* ⬅️ increase bullet size */
+      color: var(--muted-color);     /* or --gold if you prefer */
+    }
+
+    /* Capgemini inline block */
+    .capgemini-inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+
+    .capgemini-icon {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .capgemini-text {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.95rem;
+      color: var(--text-color);
+    }
+
+    .company-name {
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .job-meta, .job-location {
+      margin: 0;
+      color: var(--muted-color);
+    }
+
+    /* Capgemini inside timeline with dot (no top line) */
+    .capgemini-timeline {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding-left: 30px;
+      margin-bottom: 20px; /* ⬅️ reduce this from 30px */
+      margin-top: 80px;      /* ⬅️ adjust value as needed */
+      position: relative;
+    }
+
+    .capgemini-timeline::before {
+      content: none !important;
+    }
+    
+    .capgemini-timeline-icon {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+      position: absolute;
+      left: 20px;
+      top: 4px;
+    }
+
+    .capgemini-timeline::after {
+      content: none;
+    }
+
+    .experience-inline {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;                 /* ⬅️ increase spacing */
+      padding-left: 10px;
+      margin-bottom: 24px;
+      margin-top: -36px;
+      position: relative;
+    }
+
+    .capgemini-icon-dot {
+      height: 24px;
+      object-fit: contain;
+      margin-top: 22px;         /* ⬅️ move icon lower */
+      margin-left: 8px;
+    }
+
+    .capgemini-inline-text {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.95rem;
+      color: var(--text-color);
+      padding-top: 20px;         /* ⬅️ align text top better */
+      padding-left: 6px;        /* ⬅️ slight right shift */
+    }
+
+    .capgemini-timeline.experience-inline {
+      margin-top: 10px !important;  /* ⬅️ force override */
+    }
+
+    .capgemini-inline-text p.job-meta {
+      margin-top: 10px;  /* ⬅️ Move "Full-time · 2 yrs 8 mos" down */
+    }
+    
+    .capgemini-inline-text p.job-location {
+      margin-top: 6px;   /* ⬅️ Move "On-site" down */
+    }
+
+    .timeline-text {
+      margin-top: 12px;
+    }
+
+    .timeline-text p {
+      color: var(--muted-color);
+      margin-bottom: 10px;
+    }
+
+    .expandable-list {
+      list-style: disc;
+      list-style-position: outside;
+      padding-left: 24px;
+      margin: 12px 0 0;
+    }
+
+    .expandable-list li {
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .more-li {
+      display: none;
+    }
+
+    .expandable-list.expanded .more-li {
+      display: list-item;
+    }
+
+    .toggle-btn {
+      color: #888;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-left: 5px;
+      display: inline-block;
+    }
+
+  </style>
+</head>
+
+<body>
+  <section id="experience" class="experience-section">
+    <div class="experience-wrapper">
+      <div class="experience-left">
+        <h2 class="experience-title"> Professional Experience </h2>
+        
+        <p class="experience-text">
+          I’m a passionate ETL QA Lead with over <strong>4 years</strong> of experience in test automation, bringing expertise in 
+          <strong>Selenium WebDriver, Java, Python, SQL</strong>, and API testing with tools like <strong>Postman</strong> and <strong>JMeter</strong>. 
+          <br><br>
+          I excel at executing <strong>regression testing</strong> & validating <strong>AI/ML solutions</strong>. I’ve collaborated with cross-functional 
+          teams on <strong>ETL processes</strong> and <strong>Master Data Management (MDM)</strong> with Informatica. 
+          <br><br>
+          I’m certified in <strong>ISTQB Foundation Level v4.0</strong> and have a strong background in <strong>API testing</strong>, test automation, 
+          and <strong>defect management</strong> using tools like <strong>Selenium, Cucumber, JIRA</strong>, and <strong>performance testing</strong>.
+        </p>
+        
+      </div>
+      
+      <div class="experience-right">
+        <lottie-player 
+          src="images/user-interface.json" 
+          background="transparent" 
+          speed="1" 
+          style="width: 100%; max-width: 400px; height: auto;" 
+          loop autoplay>
+        </lottie-player>
+      </div>
+    </div>
+
+    <div class="job-card">
+      <img src="images/company-logo/capgemini.png" alt="Capgemini Logo" class="company-logo" />
+      <h3 class="company-row">Associate Consultant</h3>
+      <p><strong>Mumbai, India</strong></p>
+      <p>
+        <span class="calendar-dates">
+          <svg class="calendar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="1.5" d="M8 2v2m8-2v2M3 7h18M5 7v13h14V7H5Z"/>
+          </svg>
+          MAR 2019 - OCT 2021
+        </span>
+      </p>
+    </div>
+
+    <div class="job-card">
+      <img src="images/company-logo/accenture.png" alt="Accenture Logo" class="company-logo accenture-logo" />
+      <h3 class="company-row">Test Engineer Analyst</h3>
+      <p><strong>Mumbai, India</strong></p>
+      <p>
+        <span class="calendar-dates">
+          <svg class="calendar-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-width="1.5" d="M8 2v2m8-2v2M3 7h18M5 7v13h14V7H5Z"/>
+          </svg>
+          OCT 2021 - JUNE 2022
+        </span>
+      </p>
+    </div>
+  </section>
+
+  <section class="timeline">
+    <div class="title-wrapper">
+      <div class="icon-box">
+        <ion-icon name="book-outline"></ion-icon>
+      </div>
+      <h3 class="h3">Experience</h3>
+    </div>
+
+
+<!-- ✅ Accenture timeline-aligned entry with adjusted icon & text -->
+<div class="capgemini-timeline experience-inline">
+  <img src="images/company-logo/accenture.png" alt="Capgemini Logo" class="capgemini-icon-dot" />
+  <div class="capgemini-inline-text">
+    <p class="company-name"><strong> Accenture </strong></p>
+    <p class="job-meta"> Full-time </p>
+    <p class="job-location"> On-site </p>
+  </div>
+</div>
+<!-- ✅ Accenture timeline-aligned entry with adjusted icon & text -->
+    <ol class="timeline-list">
+      <li class="timeline-item">
+        <h4 class="timeline-item-title">💼 Software Test Engineer</h4>
+        <span> Jan 2019 – Aug 2020 </span>
+        <div class="timeline-text">
+          <p>📍 Navi Mumbai, Maharashtra</p>
+          <p>🏢 Metrics Reporting, RDBMS and <strong>+21 skills</strong></p>
+          <ul class="expandable-list">
+            <li>
+              Worked with software development and testing teams to design and develop robust solutions meeting client requirements for functionality, scalability, and performance.
+            </li>
+            <li class="more-li">
+              Conducted regression testing, submitted observations, communicated risks, and implemented mitigation strategies during test execution.
+            </li>
+            <li class="more-li">
+              Delivered unit-tested systems within client-defined deadlines.
+            </li>
+            <li class="more-li">
+              Collaborated with the team to analyze and recommend system solutions based on client requirements.
+            </li>
+            <li class="more-li">
+              Contributed to the deployment plan and performed code deployment into the pre-production environment.
+            </li>
+            <li class="more-li">
+              Created tables and views on Teradata-run databases for non-production use.
+            </li>
+            <li class="more-li">
+              Delivered testing result demos and walk-throughs for stakeholders in the database project.
+            </li>
+            <li class="more-li">
+              Experienced in Agile and Waterfall project methodologies.
+            </li>
+            <li class="more-li">
+              Implemented the complete Software Test Life Cycle (STLC) including project estimations, test planning, test scenario and case design, and execution.
+            </li>
+            <li class="more-li">
+              Prepared and consolidated daily, weekly status reports, and project closure documentation for global presentation.
+            </li>
+            <li class="more-li">
+              Managed communication among stakeholders including onsite leads, clients, vendors, developers, and business analysts.
+            </li>
+            <li class="more-li">
+              Performed match and merge operations using Informatica IDD Application.
+            </li>
+            <li class="more-li">
+              Skilled in defect logging and tracking using tools like Quality Center (QC) and JIRA.
+            </li>
+            <li class="more-li">
+              Provided product knowledge training sessions to the offshore team.
+            </li>
+            <li class="more-li">
+              Possess strong domain knowledge in Property and Casualty Insurance.
+            </li>
+            <li class="more-li">
+              Trained in API testing using Postman and REST API tools.
+            </li>
+            <li class="more-li">
+              Hands-on experience in automation testing using Selenium.
+            </li>            
+            <span class="toggle-btn" onclick="toggleMore(this)">...see more</span>
+          </ul>
+        </div>
+      </li>
+    </ol>
+
+
+
+<!-- ✅ Capgemini timeline-aligned entry with adjusted icon & text -->
+<div class="capgemini-timeline experience-inline">
+  <img src="images/company-logo/capgemini.png" alt="Capgemini Logo" class="capgemini-icon-dot" />
+  <div class="capgemini-inline-text">
+    <p class="company-name"><strong> Capgemini </strong></p>
+    <p class="job-meta"> Full-time </p>
+    <p class="job-location"> On-site </p>
+  </div>
+</div>
+<ol class="timeline-list">
+    <li class="timeline-item">
+      <h4 class="timeline-item-title">💼 Associate Consultant</h4>
+      <span>March 2019 – October 2021 </span>
+      <div class="timeline-text">
+        <p>📍 Mumbai, Maharashtra, India</p>
+        <p>🏢 Metrics Reporting, RDBMS and <strong>+21 skills</strong></p>
+      </div>
+    </li>
+
+    <ol class="timeline-list">
+
+      <li class="timeline-item">
+        
+        <h4 class="timeline-item-title"> 💼 Software Test Engineer </h4>
+        
+        <span> Jan 2019 – Aug 2020 </span>
+        
+        <div class="timeline-text">
+          <p>📍 Navi Mumbai, Maharashtra</p>
+          
+          <ul class="expandable-list">  
+            
+            <li>
+              Acted as ETL Tester for Data validation and Logic implementation at database level based on User requirements. 
+            </li>
+
+            <li class="more-li">
+              Worked with software development and testing teams to design and develop robust solutions meeting client requirements for functionality, scalability, and performance.
+            </li>
+            
+            <li class="more-li">
+              Conducted regression testing, submitted observations, communicated risks, and implemented mitigation strategies during test execution.
+            </li>
+            
+            <li class="more-li">
+              Delivered unit-tested systems within customer-prescribed timeframes.
+            </li>
+            
+            <li class="more-li">
+              Collaborated with the team to analyze system solutions based on client requirements.
+            </li>
+            
+            <li class="more-li">
+              Contributed to developing the deployment plan and deployed the code into the pre-production environment.
+            </li>
+            
+            <li class="more-li">
+              Created tables and views on Teradata-run databases for use in non-production environments.
+            </li>
+            
+            <li class="more-li">
+              Delivered testing result demos and walk-throughs to stakeholders in the database project.
+            </li>
+            
+            <li class="more-li">
+              Experience working under Agile and Waterfall methodologies.
+            </li>
+            
+            <li class="more-li">
+              Implemented full Software Test Life Cycle (STLC) including project estimation, test planning, scenario and case design, and test execution.
+            </li>
+            
+            <li class="more-li">
+              Prepared and consolidated daily, weekly status reports, and project closure reports for global representation.
+            </li>
+            
+            <li class="more-li">
+              Managed communication across stakeholders including onsite leads, clients, vendors, developers, and business analysts.
+            </li>
+            
+            <li class="more-li">
+              Performed Match and Merge operations in Informatica IDD Application.
+            </li>
+            
+            <li class="more-li">
+              Proficient in defect logging and tracking using QC and JIRA.
+            </li>
+            
+            <li class="more-li">
+              Provided product knowledge training to the offshore team.
+            </li>
+            
+            <li class="more-li">
+              Strong domain knowledge in Property and Casualty Insurance.
+            </li>
+            
+            <li class="more-li">
+              Trained in API testing using Postman and REST API tools.
+            </li>
+            
+            <li class="more-li">
+              Hands-on experience in automation testing using Selenium.
+            </li>            
+
+            <span class="toggle-btn" onclick="toggleMore(this)">...see more</span>
+          </ul>
+
+        </div>
+
+      </li>
+    </ol>
+</section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const bullets = document.querySelectorAll('.timeline-text li');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      bullets.forEach(bullet => observer.observe(bullet));
+    });
+
+    function toggleMore(btn) {
+      const list = btn.closest("ul.expandable-list");
+      list.classList.toggle("expanded");
+      btn.textContent = list.classList.contains("expanded") ? "...see less" : "...see more";
+    }
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Education - Sai Nikhil's Portfolio</title>
+
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #f1f1f1;
+            --accent-color: #6a5acd;
+            --text-light: #e0e0e0;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --text-dark: #f1f1f1;
+            --text-light: #e0e0e0;
+            --accent-color: #6a5acd;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+        }
+
+        #education {
+            padding: 4rem 2rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            color: var(--accent-color);
+        }
+
+        /* Lottie Animation */
+        .lottie-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Adjust grid for animation and text content */
+        .education-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Degree Entry Styling */
+        .degree-entry {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            align-items: center;
+        }
+
+        .tick {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+        }
+
+        .degree-list {
+            padding-left: 0;
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .degree-list li {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .degree-title {
+            font-weight: 600;
+        }
+
+        .degree-duration {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+
+        .degree-details {
+            font-size: 1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .transcript-btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+  <!-- Education Section Start -->
+  <section id="education" class="education-section">
+    <div class="education-content">
+
+      <!-- Left: Lottie Animation -->
+      <div class="lottie-container">
+        <lottie-player src="images/education.json" background="transparent" speed="0.7" loop autoplay></lottie-player>
+      </div>
+
+      <!-- Right: Education Details -->
+      <div>
+        <h2 class="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-900 md:text-3xl dark:text-white">Education</h2>
+
+        <!-- Master's Degree Entry -->
+        <div class="degree-entry">
+          <span class="tick">✔</span>
+          <span>
+            I hold a <strong>Master's Degree</strong> in Computer Science from <strong>Northern Arizona University</strong> located in <strong>Flagstaff, AZ, USA</strong>.
+            <div class="degree-duration"><strong>Graduation Day:</strong> May 2024.</div>
+          </span>
+        </div>
+
+        <!-- Bachelor's Degree Entry -->
+        <div class="degree-entry">
+          <span class="tick">✔</span>
+          <span>
+            I hold a <strong>Bachelor's Degree</strong> in Computer Science from <strong>Gitam University</strong> located in <strong>Hyderabad, India</strong>.
+            <div class="degree-duration"><strong>Graduation Day:</strong> April 2018.</div>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Master's Degree Enhanced Card -->
+    <div class="enhanced-edu-card">
+      <div class="edu-heading-box">
+        <h3 class="edu-degree">Master of Science in Computer Science</h3>
+        <p>Northern Arizona University</p>
+        <p>Flagstaff – Arizona – United States of America</p>
+        <p class="edu-duration">Aug 2022 – May 2024</p>  
+      </div>
+
+      <ul class="edu-details degree-list">
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>GPA:</strong> 3.3 / 4.0</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>Graduation Day:</strong> 10<sup>th</sup> May 2024</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>Relevant Coursework:</strong> Artificial Intelligence, Large Scale Data Structures, Data Mining and Machine Learning.</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span class="degree-details">
+            <strong>Graduate Research:</strong> Researched clock synchronization in mobile wireless ad hoc Raspberry Pi’s for asynchronous data collection, with a focus on networked data logging, under the supervision of Dr. Kyle Winfree in Wearable Informatics Lab.
+          </span>
+        </li>
+      </ul>
+
+      <a class="transcript-btn" href="#" target="_blank">View Transcript</a>
+    </div>
+
+    <!-- Bachelor's Degree Enhanced Card -->
+    <div class="enhanced-edu-card">
+      <div class="edu-heading-box">
+        <h3 class="edu-degree">Bachelor of Engineering in Computer Science</h3>
+        <p>Gandhi Institute of Technology Management</p>
+        <p>Hyderabad - India</p>
+        <p class="edu-duration">JUN 2014 - APR 2018</p>  
+      </div>
+
+      <ul class="edu-details degree-list">
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>GPA:</strong> 65%</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>Graduation Day:</strong> 30<sup>th</sup> April 2018</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span><strong>Relevant Coursework:</strong> VLSI ASIC Design, Artificial Neural Networks, Automotive Electronics, Operating Systems.</span>
+        </li>
+        <li>
+          <span class="tick">✔</span>
+          <span class="degree-details">
+            <strong>Graduate Research:</strong> Researched clock synchronization in mobile wireless ad hoc Raspberry Pi’s for asynchronous data collection, with a focus on networked data logging, under the supervision of Dr. Kyle Winfree in Wearable Informatics Lab.
+          </span>
+        </li>
+      </ul>
+
+      <a class="transcript-btn" href="Files/Sai Nikhil Provincinal Degree Certificate.pdf" target="_blank">View Transcript</a>
+    </div>
+
+  </section>
+  <!-- Education Section End -->
+
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+</html>

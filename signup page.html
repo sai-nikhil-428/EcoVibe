@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Login / Signup Page </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+
+    :root {
+      --mainColor: crimson;
+      --black: #000;
+      --white: #fff;
+      --whiteSmoke: #c4c3ca;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: 0.3s;
+    }
+
+    nav {
+      background: var(--black);
+      padding: 20px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: var(--mainColor);
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+
+    nav ul li {
+      margin-left: 20px;
+    }
+
+    nav ul li a {
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+
+    nav ul li a.active,
+    nav ul li a:hover {
+      background: var(--white);
+      color: var(--mainColor);
+    }
+
+    section {
+      padding-top: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      min-height: 100vh;
+    }
+
+    .left {
+        flex: 1 1 400px;
+        padding: 20px;
+        transform: translateX(130px); /* New line: shifts left content right */
+      }
+      
+    .left h2 {
+      font-size: 40px;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .left h2 span {
+      color: var(--mainColor);
+    }
+
+    .left p {
+      color: var(--whiteSmoke);
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--mainColor);
+      padding: 10px 25px;
+      color: var(--white);
+      border-radius: 4px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--white);
+      color: var(--mainColor);
+    }
+
+    .social-media {
+      margin-top: 30px;
+    }
+
+    .social-media a {
+      margin-right: 15px;
+      font-size: 20px;
+      color: var(--whiteSmoke);
+    }
+
+    .social-media a:hover {
+      color: var(--mainColor);
+    }
+
+    .form-box {
+        perspective: 1000px;
+        width: 350px;
+        transform: translateX(-160px); /* New line: shifts form box left */
+    }
+
+    .toggle-switch {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .switcher {
+      background: var(--mainColor);
+      width: 60px;
+      height: 16px;
+      border-radius: 8px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .switcher::before {
+      content: "\f061";
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      position: absolute;
+      top: -12px;
+      left: -10px;
+      background: var(--white);
+      color: var(--mainColor);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.6s;
+    }
+
+    .flipped .switcher::before {
+      transform: translateX(44px) rotate(-180deg);
+    }
+
+    .card {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+
+    .flipped .card {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      background: #1b1b1b url("https://i.postimg.cc/4dnZCH03/background.png") no-repeat center bottom / 300%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+    }
+
+
+    .card-face.card-front,
+    .card-face.card-back {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      height: 100%; /* Ensure the form takes up the full height */
+    }
+    
+    .card-front .form-group:last-child {
+      margin-bottom: 30px; /* Added margin at the bottom of the last input field */
+    }
+    
+    .card-front button {
+      margin-bottom: 20px; /* Increased space below the submit button */
+    }
+    
+    .card-front p {
+      margin-top: 20px; /* Added top margin to "Forgot your password?" link */
+    }
+
+
+    .card-face.card-front h3,
+    .card-face.card-back h3 {
+      margin-bottom: 10px;  /* Adjusted space below the title */
+      margin-top: -20px;    /* Moves the title up */
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    p {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    p a {
+      color: var(--whiteSmoke);
+      text-decoration: underline;
+    }
+    
+    p a:hover {
+      color: var(--mainColor);
+    }
+
+    .form-group {
+      width: 100%;
+      margin-bottom: 20px; /* Space between fields */
+    }
+
+    .form-style {
+      width: 100%;
+      padding: 12px 15px;
+      border: none;
+      border-radius: 4px;
+      background: #242323;
+      color: var(--whiteSmoke);
+    }
+
+    .form-style::placeholder {
+      color: var(--whiteSmoke);
+      opacity: 0.7;
+    }
+
+    .input-icon {
+      position: absolute;
+      top: 8px;
+      left: 12px;
+      color: var(--mainColor);
+    }
+
+    button {
+      width: 100%; /* Make the button take up full width */
+      padding: 12px 15px;
+      border-radius: 4px;
+      background: var(--mainColor);
+      color: var(--white);
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: var(--white);
+      color: var(--mainColor);
+    }
+    
+    p {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+    }
+    
+    p a {
+      color: var(--whiteSmoke);
+      text-decoration: underline;
+    }
+    
+    p a:hover {
+      color: var(--mainColor);
+    }
+
+    @media (max-width: 768px) {
+      section {
+        flex-direction: column;
+        padding: 60px 20px;
+      }
+
+      .left {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="logo">  EchoVibe <span>Project</span></div>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Feedback</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section>
+    <div class="left">
+      <span style="display:inline-block;width:40px;height:3px;background:var(--mainColor);margin-bottom:10px;"></span>
+      <h2>Hello, I'm Sai Nikhil Bogisetty,<br><span> an ETL Automation Test Engineer</span></h2>
+      
+      <a href="+1-5052106936" class="btn">Contact</a>
+
+      <div class="social-media">
+        <a href="https://www.facebook.com/sai.nikhil.428/"><i class="fab fa-facebook-f"></i></a>
+        <!-- <a href="#"><i class="fab fa-x-twitter"></i></a> 
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a> -->
+        <a href="https://www.linkedin.com/in/sainikhilb/"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <div class="form-box" id="formBox">
+      <div class="toggle-switch">
+        <span>LOG IN</span>
+        <div class="switcher" id="switcher"></div>
+        <span>SIGN UP</span>
+      </div>
+      <div class="card" id="card">
+        <div class="card-face card-front">
+          <h3>Log In</h3>
+          <div class="form-group">
+            <i class="material-icons input-icon">alternate_email</i>
+            <input type="email" class="form-style" placeholder="Your Email">
+          </div>
+          <div class="form-group">
+            <i class="material-icons input-icon">lock</i>
+            <input type="password" class="form-style" placeholder="Your Password">
+          </div>
+          <button class="btn">Submit</button>
+          <p style="margin-top:10px;"><a href="#" class="link">Forgot your password?</a></p>
+        </div>
+
+        <div class="card-face card-back">
+          <h3>Sign Up</h3>
+          <div class="form-group">
+            <i class="material-icons input-icon">perm_identity</i>
+            <input type="text" class="form-style" placeholder="Your Name">
+          </div>
+          <div class="form-group">
+            <i class="material-icons input-icon">alternate_email</i>
+            <input type="email" class="form-style" placeholder="Your Email">
+          </div>
+          <div class="form-group">
+            <i class="material-icons input-icon">lock</i>
+            <input type="password" class="form-style" placeholder="Your Password">
+          </div>
+          <button class="btn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const switcher = document.getElementById("switcher");
+    const formBox = document.getElementById("formBox");
+
+    switcher.addEventListener("click", () => {
+      formBox.classList.toggle("flipped");
+    });
+  </script>
+</body>
+</html>
